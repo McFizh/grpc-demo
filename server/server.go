@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"log"
 	"math/rand"
 	"net"
@@ -16,11 +17,10 @@ type Server struct {
 
 var connCnt = 0
 
-func (s *Server) GetValues(req *protos.RangeQuery, stream protos.Randomizer_GetValuesServer) error {
+func (s *Server) GetValueStream(req *protos.RangeQuery, stream protos.Randomizer_GetValueStreamServer) error {
 	timer := time.NewTicker(2 * time.Second)
 
 	connCnt++
-	log.Printf("Min: %d, Max: %d\n", req.MinRange, req.MaxRange)
 
 	for {
 		select {
@@ -36,6 +36,20 @@ func (s *Server) GetValues(req *protos.RangeQuery, stream protos.Randomizer_GetV
 		}
 	}
 
+}
+
+func (s *Server) GetValuePair(ctx context.Context, req *protos.RangeQuery) (*protos.ValuePairReply, error) {
+	var l1 int32
+	var numbers = make([]*protos.ValueReply, req.Count)
+
+	for l1 = 0; l1 < req.Count; l1++ {
+		val := rand.Int31n(req.MaxRange-req.MinRange) + req.MinRange
+		numbers[l1] = &protos.ValueReply{Value: val}
+	}
+
+	return &protos.ValuePairReply{
+		Values: numbers,
+	}, nil
 }
 
 func main() {

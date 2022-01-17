@@ -31,6 +31,7 @@ type RangeQuery struct {
 
 	MinRange int32 `protobuf:"varint,1,opt,name=minRange,proto3" json:"minRange,omitempty"`
 	MaxRange int32 `protobuf:"varint,2,opt,name=maxRange,proto3" json:"maxRange,omitempty"`
+	Count    int32 `protobuf:"varint,3,opt,name=count,proto3" json:"count,omitempty"`
 }
 
 func (x *RangeQuery) Reset() {
@@ -75,6 +76,13 @@ func (x *RangeQuery) GetMinRange() int32 {
 func (x *RangeQuery) GetMaxRange() int32 {
 	if x != nil {
 		return x.MaxRange
+	}
+	return 0
+}
+
+func (x *RangeQuery) GetCount() int32 {
+	if x != nil {
+		return x.Count
 	}
 	return 0
 }
@@ -126,23 +134,78 @@ func (x *ValueReply) GetValue() int32 {
 	return 0
 }
 
+type ValuePairReply struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Values []*ValueReply `protobuf:"bytes,1,rep,name=values,proto3" json:"values,omitempty"`
+}
+
+func (x *ValuePairReply) Reset() {
+	*x = ValuePairReply{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_value_proto_msgTypes[2]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *ValuePairReply) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ValuePairReply) ProtoMessage() {}
+
+func (x *ValuePairReply) ProtoReflect() protoreflect.Message {
+	mi := &file_value_proto_msgTypes[2]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ValuePairReply.ProtoReflect.Descriptor instead.
+func (*ValuePairReply) Descriptor() ([]byte, []int) {
+	return file_value_proto_rawDescGZIP(), []int{2}
+}
+
+func (x *ValuePairReply) GetValues() []*ValueReply {
+	if x != nil {
+		return x.Values
+	}
+	return nil
+}
+
 var File_value_proto protoreflect.FileDescriptor
 
 var file_value_proto_rawDesc = []byte{
-	0x0a, 0x0b, 0x76, 0x61, 0x6c, 0x75, 0x65, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x22, 0x44, 0x0a,
+	0x0a, 0x0b, 0x76, 0x61, 0x6c, 0x75, 0x65, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x22, 0x5a, 0x0a,
 	0x0a, 0x52, 0x61, 0x6e, 0x67, 0x65, 0x51, 0x75, 0x65, 0x72, 0x79, 0x12, 0x1a, 0x0a, 0x08, 0x6d,
 	0x69, 0x6e, 0x52, 0x61, 0x6e, 0x67, 0x65, 0x18, 0x01, 0x20, 0x01, 0x28, 0x05, 0x52, 0x08, 0x6d,
 	0x69, 0x6e, 0x52, 0x61, 0x6e, 0x67, 0x65, 0x12, 0x1a, 0x0a, 0x08, 0x6d, 0x61, 0x78, 0x52, 0x61,
 	0x6e, 0x67, 0x65, 0x18, 0x02, 0x20, 0x01, 0x28, 0x05, 0x52, 0x08, 0x6d, 0x61, 0x78, 0x52, 0x61,
-	0x6e, 0x67, 0x65, 0x22, 0x22, 0x0a, 0x0a, 0x56, 0x61, 0x6c, 0x75, 0x65, 0x52, 0x65, 0x70, 0x6c,
-	0x79, 0x12, 0x14, 0x0a, 0x05, 0x76, 0x61, 0x6c, 0x75, 0x65, 0x18, 0x01, 0x20, 0x01, 0x28, 0x05,
-	0x52, 0x05, 0x76, 0x61, 0x6c, 0x75, 0x65, 0x32, 0x37, 0x0a, 0x0a, 0x52, 0x61, 0x6e, 0x64, 0x6f,
-	0x6d, 0x69, 0x7a, 0x65, 0x72, 0x12, 0x29, 0x0a, 0x09, 0x47, 0x65, 0x74, 0x56, 0x61, 0x6c, 0x75,
-	0x65, 0x73, 0x12, 0x0b, 0x2e, 0x52, 0x61, 0x6e, 0x67, 0x65, 0x51, 0x75, 0x65, 0x72, 0x79, 0x1a,
-	0x0b, 0x2e, 0x56, 0x61, 0x6c, 0x75, 0x65, 0x52, 0x65, 0x70, 0x6c, 0x79, 0x22, 0x00, 0x30, 0x01,
-	0x42, 0x24, 0x5a, 0x22, 0x67, 0x69, 0x74, 0x68, 0x75, 0x62, 0x2e, 0x63, 0x6f, 0x6d, 0x2f, 0x6d,
-	0x63, 0x66, 0x69, 0x7a, 0x68, 0x2f, 0x67, 0x72, 0x70, 0x63, 0x2d, 0x64, 0x65, 0x6d, 0x6f, 0x2f,
-	0x70, 0x72, 0x6f, 0x74, 0x6f, 0x73, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x6e, 0x67, 0x65, 0x12, 0x14, 0x0a, 0x05, 0x63, 0x6f, 0x75, 0x6e, 0x74, 0x18, 0x03, 0x20, 0x01,
+	0x28, 0x05, 0x52, 0x05, 0x63, 0x6f, 0x75, 0x6e, 0x74, 0x22, 0x22, 0x0a, 0x0a, 0x56, 0x61, 0x6c,
+	0x75, 0x65, 0x52, 0x65, 0x70, 0x6c, 0x79, 0x12, 0x14, 0x0a, 0x05, 0x76, 0x61, 0x6c, 0x75, 0x65,
+	0x18, 0x01, 0x20, 0x01, 0x28, 0x05, 0x52, 0x05, 0x76, 0x61, 0x6c, 0x75, 0x65, 0x22, 0x35, 0x0a,
+	0x0e, 0x56, 0x61, 0x6c, 0x75, 0x65, 0x50, 0x61, 0x69, 0x72, 0x52, 0x65, 0x70, 0x6c, 0x79, 0x12,
+	0x23, 0x0a, 0x06, 0x76, 0x61, 0x6c, 0x75, 0x65, 0x73, 0x18, 0x01, 0x20, 0x03, 0x28, 0x0b, 0x32,
+	0x0b, 0x2e, 0x56, 0x61, 0x6c, 0x75, 0x65, 0x52, 0x65, 0x70, 0x6c, 0x79, 0x52, 0x06, 0x76, 0x61,
+	0x6c, 0x75, 0x65, 0x73, 0x32, 0x6c, 0x0a, 0x0a, 0x52, 0x61, 0x6e, 0x64, 0x6f, 0x6d, 0x69, 0x7a,
+	0x65, 0x72, 0x12, 0x2e, 0x0a, 0x0e, 0x47, 0x65, 0x74, 0x56, 0x61, 0x6c, 0x75, 0x65, 0x53, 0x74,
+	0x72, 0x65, 0x61, 0x6d, 0x12, 0x0b, 0x2e, 0x52, 0x61, 0x6e, 0x67, 0x65, 0x51, 0x75, 0x65, 0x72,
+	0x79, 0x1a, 0x0b, 0x2e, 0x56, 0x61, 0x6c, 0x75, 0x65, 0x52, 0x65, 0x70, 0x6c, 0x79, 0x22, 0x00,
+	0x30, 0x01, 0x12, 0x2e, 0x0a, 0x0c, 0x47, 0x65, 0x74, 0x56, 0x61, 0x6c, 0x75, 0x65, 0x50, 0x61,
+	0x69, 0x72, 0x12, 0x0b, 0x2e, 0x52, 0x61, 0x6e, 0x67, 0x65, 0x51, 0x75, 0x65, 0x72, 0x79, 0x1a,
+	0x0f, 0x2e, 0x56, 0x61, 0x6c, 0x75, 0x65, 0x50, 0x61, 0x69, 0x72, 0x52, 0x65, 0x70, 0x6c, 0x79,
+	0x22, 0x00, 0x42, 0x24, 0x5a, 0x22, 0x67, 0x69, 0x74, 0x68, 0x75, 0x62, 0x2e, 0x63, 0x6f, 0x6d,
+	0x2f, 0x6d, 0x63, 0x66, 0x69, 0x7a, 0x68, 0x2f, 0x67, 0x72, 0x70, 0x63, 0x2d, 0x64, 0x65, 0x6d,
+	0x6f, 0x2f, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x73, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (
@@ -157,19 +220,23 @@ func file_value_proto_rawDescGZIP() []byte {
 	return file_value_proto_rawDescData
 }
 
-var file_value_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
+var file_value_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
 var file_value_proto_goTypes = []interface{}{
-	(*RangeQuery)(nil), // 0: RangeQuery
-	(*ValueReply)(nil), // 1: ValueReply
+	(*RangeQuery)(nil),     // 0: RangeQuery
+	(*ValueReply)(nil),     // 1: ValueReply
+	(*ValuePairReply)(nil), // 2: ValuePairReply
 }
 var file_value_proto_depIdxs = []int32{
-	0, // 0: Randomizer.GetValues:input_type -> RangeQuery
-	1, // 1: Randomizer.GetValues:output_type -> ValueReply
-	1, // [1:2] is the sub-list for method output_type
-	0, // [0:1] is the sub-list for method input_type
-	0, // [0:0] is the sub-list for extension type_name
-	0, // [0:0] is the sub-list for extension extendee
-	0, // [0:0] is the sub-list for field type_name
+	1, // 0: ValuePairReply.values:type_name -> ValueReply
+	0, // 1: Randomizer.GetValueStream:input_type -> RangeQuery
+	0, // 2: Randomizer.GetValuePair:input_type -> RangeQuery
+	1, // 3: Randomizer.GetValueStream:output_type -> ValueReply
+	2, // 4: Randomizer.GetValuePair:output_type -> ValuePairReply
+	3, // [3:5] is the sub-list for method output_type
+	1, // [1:3] is the sub-list for method input_type
+	1, // [1:1] is the sub-list for extension type_name
+	1, // [1:1] is the sub-list for extension extendee
+	0, // [0:1] is the sub-list for field type_name
 }
 
 func init() { file_value_proto_init() }
@@ -202,6 +269,18 @@ func file_value_proto_init() {
 				return nil
 			}
 		}
+		file_value_proto_msgTypes[2].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*ValuePairReply); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
 	}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
@@ -209,7 +288,7 @@ func file_value_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_value_proto_rawDesc,
 			NumEnums:      0,
-			NumMessages:   2,
+			NumMessages:   3,
 			NumExtensions: 0,
 			NumServices:   1,
 		},
@@ -235,7 +314,8 @@ const _ = grpc.SupportPackageIsVersion6
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
 type RandomizerClient interface {
-	GetValues(ctx context.Context, in *RangeQuery, opts ...grpc.CallOption) (Randomizer_GetValuesClient, error)
+	GetValueStream(ctx context.Context, in *RangeQuery, opts ...grpc.CallOption) (Randomizer_GetValueStreamClient, error)
+	GetValuePair(ctx context.Context, in *RangeQuery, opts ...grpc.CallOption) (*ValuePairReply, error)
 }
 
 type randomizerClient struct {
@@ -246,12 +326,12 @@ func NewRandomizerClient(cc grpc.ClientConnInterface) RandomizerClient {
 	return &randomizerClient{cc}
 }
 
-func (c *randomizerClient) GetValues(ctx context.Context, in *RangeQuery, opts ...grpc.CallOption) (Randomizer_GetValuesClient, error) {
-	stream, err := c.cc.NewStream(ctx, &_Randomizer_serviceDesc.Streams[0], "/Randomizer/GetValues", opts...)
+func (c *randomizerClient) GetValueStream(ctx context.Context, in *RangeQuery, opts ...grpc.CallOption) (Randomizer_GetValueStreamClient, error) {
+	stream, err := c.cc.NewStream(ctx, &_Randomizer_serviceDesc.Streams[0], "/Randomizer/GetValueStream", opts...)
 	if err != nil {
 		return nil, err
 	}
-	x := &randomizerGetValuesClient{stream}
+	x := &randomizerGetValueStreamClient{stream}
 	if err := x.ClientStream.SendMsg(in); err != nil {
 		return nil, err
 	}
@@ -261,16 +341,16 @@ func (c *randomizerClient) GetValues(ctx context.Context, in *RangeQuery, opts .
 	return x, nil
 }
 
-type Randomizer_GetValuesClient interface {
+type Randomizer_GetValueStreamClient interface {
 	Recv() (*ValueReply, error)
 	grpc.ClientStream
 }
 
-type randomizerGetValuesClient struct {
+type randomizerGetValueStreamClient struct {
 	grpc.ClientStream
 }
 
-func (x *randomizerGetValuesClient) Recv() (*ValueReply, error) {
+func (x *randomizerGetValueStreamClient) Recv() (*ValueReply, error) {
 	m := new(ValueReply)
 	if err := x.ClientStream.RecvMsg(m); err != nil {
 		return nil, err
@@ -278,52 +358,88 @@ func (x *randomizerGetValuesClient) Recv() (*ValueReply, error) {
 	return m, nil
 }
 
+func (c *randomizerClient) GetValuePair(ctx context.Context, in *RangeQuery, opts ...grpc.CallOption) (*ValuePairReply, error) {
+	out := new(ValuePairReply)
+	err := c.cc.Invoke(ctx, "/Randomizer/GetValuePair", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // RandomizerServer is the server API for Randomizer service.
 type RandomizerServer interface {
-	GetValues(*RangeQuery, Randomizer_GetValuesServer) error
+	GetValueStream(*RangeQuery, Randomizer_GetValueStreamServer) error
+	GetValuePair(context.Context, *RangeQuery) (*ValuePairReply, error)
 }
 
 // UnimplementedRandomizerServer can be embedded to have forward compatible implementations.
 type UnimplementedRandomizerServer struct {
 }
 
-func (*UnimplementedRandomizerServer) GetValues(*RangeQuery, Randomizer_GetValuesServer) error {
-	return status.Errorf(codes.Unimplemented, "method GetValues not implemented")
+func (*UnimplementedRandomizerServer) GetValueStream(*RangeQuery, Randomizer_GetValueStreamServer) error {
+	return status.Errorf(codes.Unimplemented, "method GetValueStream not implemented")
+}
+func (*UnimplementedRandomizerServer) GetValuePair(context.Context, *RangeQuery) (*ValuePairReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetValuePair not implemented")
 }
 
 func RegisterRandomizerServer(s *grpc.Server, srv RandomizerServer) {
 	s.RegisterService(&_Randomizer_serviceDesc, srv)
 }
 
-func _Randomizer_GetValues_Handler(srv interface{}, stream grpc.ServerStream) error {
+func _Randomizer_GetValueStream_Handler(srv interface{}, stream grpc.ServerStream) error {
 	m := new(RangeQuery)
 	if err := stream.RecvMsg(m); err != nil {
 		return err
 	}
-	return srv.(RandomizerServer).GetValues(m, &randomizerGetValuesServer{stream})
+	return srv.(RandomizerServer).GetValueStream(m, &randomizerGetValueStreamServer{stream})
 }
 
-type Randomizer_GetValuesServer interface {
+type Randomizer_GetValueStreamServer interface {
 	Send(*ValueReply) error
 	grpc.ServerStream
 }
 
-type randomizerGetValuesServer struct {
+type randomizerGetValueStreamServer struct {
 	grpc.ServerStream
 }
 
-func (x *randomizerGetValuesServer) Send(m *ValueReply) error {
+func (x *randomizerGetValueStreamServer) Send(m *ValueReply) error {
 	return x.ServerStream.SendMsg(m)
+}
+
+func _Randomizer_GetValuePair_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(RangeQuery)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(RandomizerServer).GetValuePair(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/Randomizer/GetValuePair",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(RandomizerServer).GetValuePair(ctx, req.(*RangeQuery))
+	}
+	return interceptor(ctx, in, info, handler)
 }
 
 var _Randomizer_serviceDesc = grpc.ServiceDesc{
 	ServiceName: "Randomizer",
 	HandlerType: (*RandomizerServer)(nil),
-	Methods:     []grpc.MethodDesc{},
+	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "GetValuePair",
+			Handler:    _Randomizer_GetValuePair_Handler,
+		},
+	},
 	Streams: []grpc.StreamDesc{
 		{
-			StreamName:    "GetValues",
-			Handler:       _Randomizer_GetValues_Handler,
+			StreamName:    "GetValueStream",
+			Handler:       _Randomizer_GetValueStream_Handler,
 			ServerStreams: true,
 		},
 	},

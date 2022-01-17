@@ -4,12 +4,19 @@ option go_package = "github.com/mcfizh/grpc-demo/protos";
 message RangeQuery {
    int32 minRange = 1;
    int32 maxRange = 2;
+   int32 count = 3;
 }
 
 message ValueReply {
   int32 value = 1;
 }
 
+message ValuePairReply {
+  repeated ValueReply values = 1;
+}
+
 service Randomizer {
-  rpc GetValues(RangeQuery) returns (stream ValueReply) {}
+  rpc GetValueStream(RangeQuery) returns (stream ValueReply) {}
+
+  rpc GetValuePair(RangeQuery) returns (ValuePairReply) {}
 }
