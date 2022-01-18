@@ -1,0 +1,35 @@
+﻿<Window x:Class="gRPC_client.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:gRPC_client"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Grid.Row="0" VerticalAlignment="Center" Margin="15,0,0,0">
+            <TextBox x:Name="serverHost" HorizontalAlignment="Left" Text="localhost" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+            <TextBox x:Name="serverPort" HorizontalAlignment="Left" Text="9000" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="15,0,0,0"/>
+            <Button x:Name="connectButton" Content="Connect" HorizontalAlignment="Left"  VerticalAlignment="Top" Margin="15,0,0,0" Click="connectClick"/>
+            <Button x:Name="streamButton" Content="Start stream" HorizontalAlignment="Left"  VerticalAlignment="Top" Margin="15,0,0,0" Click="startStreamClick"/>
+            <Button x:Name="requestButton" Content="Get values" HorizontalAlignment="Left"  VerticalAlignment="Top" Margin="15,0,0,0" Click="requestClick"/>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Grid.Row="1" VerticalAlignment="Center" Margin="15,0,0,0">
+            <TextBlock Text="Min:"/>
+            <TextBox Width="100" x:Name="valueMin" Text="1" Margin="5,0,0,0"/>
+            <TextBlock Text="Max:" Margin="15,0,0,0"/>
+            <TextBox Width="100" x:Name="valueMax" Text="10" Margin="5,0,0,0"/>
+            <TextBlock Text="Count:" Margin="15,0,0,0"/>
+            <TextBox Width="100" x:Name="valueCount" Text="5" Margin="5,0,0,0"/>
+        </StackPanel>
+        <ScrollViewer Grid.Row="2" Margin="15,0,0,0">
+            <TextBlock x:Name="outputBox" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top"/>
+        </ScrollViewer>
+        
+    </Grid>
+</Window>
